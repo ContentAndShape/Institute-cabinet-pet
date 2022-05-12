@@ -1,3 +1,4 @@
+from django.contrib.auth import hashers
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import (
@@ -18,16 +19,13 @@ def registration(request, user_type):
             form = MyRegistrationForm(request.POST)
 
         if form.is_valid():
+            user = form.save(commit=False)
+            user.password = hashers.make_password(request.POST['password'])
             if user_type == 'student':
-                user = form.save(commit=False)
                 user.is_student = True
-                user.save()
             elif user_type == 'teacher':
-                user = form.save(commit=False)
                 user.is_teacher = True
-                user.save()
-            else:
-                form.save()
+            user.save()
 
             user_email = form.cleaned_data.get('email')
             messages.success(request, f'Registered user {user_email}')
