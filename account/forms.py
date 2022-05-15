@@ -1,8 +1,8 @@
-from django.forms import ModelForm
+from django import forms
 from .models import MyUser, Student, Teacher
 
 
-class MyRegistrationForm(ModelForm):
+class MyRegistrationForm(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = [
@@ -13,7 +13,7 @@ class MyRegistrationForm(ModelForm):
         ]
 
 
-class StudentRegistrationForm(ModelForm):   
+class StudentRegistrationForm(forms.ModelForm):   
     class Meta:
         model = Student
         fields = [
@@ -24,6 +24,11 @@ class StudentRegistrationForm(ModelForm):
             'institute',
         ]
 
-class TeacherRegistrationForm(ModelForm):
+class TeacherRegistrationForm(forms.ModelForm):
     class Meta(MyRegistrationForm.Meta):
         model = Teacher
+
+
+class LogInForm(forms.Form):
+    email = forms.EmailField(label='Email', max_length=255)
+    password = forms.CharField(label='Password', max_length=255)

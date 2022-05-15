@@ -3,4 +3,9 @@
         {{ message }}
     {% endfor %}
 {% endif %}
-Account base page
+{% if user.is_authenticated %}
+    You're logged in as {{ user.first_name }} {{ user.last_name }}
+{% else %}
+    You're {{ user }}
+{% endif %}
+<p>Account base page</p>
