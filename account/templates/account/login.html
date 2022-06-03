@@ -7,6 +7,11 @@
     <title>Log in</title>
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
     {% if user.is_authenticated %}
         <p>You are already logged in as {{ user.email }}, log into another account?</p>
     {% endif %}
